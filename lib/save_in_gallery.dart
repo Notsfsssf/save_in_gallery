@@ -1,11 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 
 class ImageSaver {
-  static const MethodChannel _platform =
-      const MethodChannel("com.fdt/save_in_gallery_channel");
+  static MethodChannel? _platform = Platform.isIOS
+      ? const MethodChannel("com.fdt/save_in_gallery_channel")
+      : null;
 
   static const String _saveImageMethodKey = "saveImageKey";
   static const String _saveImagesMethodKey = "saveImagesKey";
@@ -21,7 +23,7 @@ class ImageSaver {
     String? directoryName,
   }) async {
     try {
-      final bool result = await _platform.invokeMethod(
+      final bool result = await _platform!.invokeMethod(
         _saveImageMethodKey,
         {
           "imageBytes": imageBytes,
@@ -48,7 +50,7 @@ class ImageSaver {
       "imageBytes must not be null and must not be empty",
     );
     try {
-      final bool result = await _platform.invokeMethod(
+      final bool result = await _platform!.invokeMethod(
         _saveImagesMethodKey,
         {
           "directoryName": directoryName,
@@ -75,7 +77,7 @@ class ImageSaver {
       "namedImageBytes must not be null and must not be empty",
     );
     try {
-      final bool result = await _platform.invokeMethod(
+      final bool result = await _platform!.invokeMethod(
         _saveNamedImagesMethodKey,
         {
           "directoryName": directoryName,

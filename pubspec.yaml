@@ -1,6 +1,6 @@
 name: save_in_gallery
 description: Flutter plugin that allows you to save images in native gallery in both Android and iOS. You can either save them in default album or in named album of your choice.
-version: 0.1.4
+version: 0.1.5
 author: FiveDotTwelve <office@fivedottwelve.com>
 homepage: https://github.com/FiveDotTwelve/save_in_gallery
 repository: https://github.com/FiveDotTwelve/save_in_gallery
@@ -18,5 +18,6 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.fdt.save_in_gallery
-    pluginClass: SaveInGalleryPlugin
+    platforms:
+      ios:
+        pluginClass: SaveInGalleryPlugin
